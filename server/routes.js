@@ -43,7 +43,7 @@ router.get('/:type/:size/zip/:zip', async (req, res) => {
         }
     })
 
-    return res.json(cityObj)
+    return res.json([cityObj])
 });
 
 router.get('/:type/:size/zips-in-metro/:metro', async (req, res) => {
@@ -71,6 +71,12 @@ router.get('/:type/:size/zips-in-metro/:metro', async (req, res) => {
     })
 
     return res.json(cityList)
+});
+
+router.use((req, res, next) => {
+    const err = new Error("API route not found!");
+    err.status = 404;
+    next(err);
 });
 
 module.exports = router
